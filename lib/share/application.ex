@@ -8,7 +8,7 @@ defmodule Share.Application do
   def start(_type, _args) do
     children = [
       # Starts a worker by calling: Share.Worker.start_link(arg)
-      # {Share.Worker, arg}
+      {Share.Server, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
