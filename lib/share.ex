@@ -3,14 +3,14 @@ defmodule Share do
   Share module contain all function to interactive inside of node.
   """
 
-  def recive_file(name: name, data: data) do
+  def recive_file(name: _name, data: _data) do
     # Share.Utils.File.download_file(file)
-    IO.puts name
-    IO.puts data
+    true
   end
 
-  def send(to) do
-    Share.Utils.File.file_to_share |> do_send(to)
+  def send(to: to, filename: filename) do
+    Share.Utils.File.file_to_share(filename)
+    |> do_send(to)
   end
 
   def do_send(file, to) do

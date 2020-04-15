@@ -3,9 +3,8 @@ defmodule Share.Utils.File do
 
   @download_path "/share/downloads"
 
-  def file_to_share do
-    IO.puts "Path of filename: "
-    IO.read(:line)
+  def file_to_share(filename) do
+    filename
     |> String.trim
     |> File.stream!
     |> compress_data
@@ -22,9 +21,7 @@ defmodule Share.Utils.File do
     {{year, month, day}, {_, _, _}} = :calendar.local_time
     {:ok, ext} = String.split(path, ".")
       |> Enum.reverse
-      |> IO.inspect
       |> Enum.fetch(0)
-      |> IO.inspect
 
     [
       data: data,

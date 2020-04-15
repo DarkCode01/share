@@ -12,8 +12,6 @@ defmodule ShareNodeTests do
   test "Creating new node with module.", state do
     created? = Share.Node.create(name: state[:name], secret: state[:secret])
 
-    IO.inspect(state[:node])
-
     assert created? == true
   end
 
@@ -21,5 +19,12 @@ defmodule ShareNodeTests do
     connected? = Share.Node.connect_node(name: state[:name] <> "1", hostname: state[:hostname])
 
     assert connected? == true
+  end
+
+  test "Get my identify node", state do
+    identify = Share.Node.me
+
+    assert is_atom(identify)
+    assert identify == :"#{state[:name]}@#{state[:hostname]}"
   end
 end

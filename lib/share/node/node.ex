@@ -36,9 +36,4 @@ defmodule Share.Node do
   def connect_node(name: name, hostname: hostname) do
     Node.connect(:"#{name}@#{hostname}")
   end
-
-  def set_secret(secret) when is_atom(secret) do
-    Node.set_cookie(secret)
-    GenServer.cast(Share.Server, {:update, :secret, secret})
-  end
 end
