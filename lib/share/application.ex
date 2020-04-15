@@ -8,6 +8,7 @@ defmodule Share.Application do
   def start(_type, _args) do
     children = [
       # Starts a worker by calling: Share.Worker.start_link(arg)
+      {Share.Setup, []},
       {Share.Server, []},
       {Task.Supervisor, name: Share.TaskSupervisor}
     ]
