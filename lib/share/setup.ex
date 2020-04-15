@@ -6,8 +6,9 @@ defmodule Share.Setup do
     def start_link([]) do
       IO.puts "Init setup..."
 
-      Task.async(__MODULE__, :run, [])
-      Task.await()
+      # task = Task.async(Share.Setup, :run, [])
+      # Task.await(task)
+      Task.start_link(__MODULE__, :run, [])
     end
 
     def run do
