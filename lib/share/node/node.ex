@@ -29,7 +29,7 @@ defmodule Share.Node do
     Node.set_cookie(share_node.secret)
   end
 
-  def connect_node(name: name, hostname: hostname) when is_string(name) and is_string(hostname) do
+  def connect_node(name: name, hostname: hostname) do
     Node.connect(:"#{name}@#{hostname}")
   end
 end
