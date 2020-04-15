@@ -15,6 +15,21 @@ defmodule Share.Utils.File do
     stream
     |> Enum.map(&to_string/1)
     |> Enum.join("")
+    |> file_payload(stream.path)
+  end
+
+  def file_payload(data, path) do
+    {{year, month, day}, {_, _, _}} = :calendar.local_time
+    {:ok, ext} = String.split(path, ".")
+      |> Enum.reverse
+      |> IO.inspect
+      |> Enum.fetch(0)
+      |> IO.inspect
+
+    [
+      data: data,
+      name: "/#{year}-#{month}-#{day}.#{ext}",
+    ]
   end
 
   def download_file(data) do

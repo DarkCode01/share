@@ -3,8 +3,10 @@ defmodule Share do
   Share module contain all function to interactive inside of node.
   """
 
-  def recive_file(file) do
-    Share.Utils.File.download_file(file)
+  def recive_file(name: name, data: data) do
+    # Share.Utils.File.download_file(file)
+    IO.puts name
+    IO.puts data
   end
 
   def send(to) do
@@ -13,7 +15,7 @@ defmodule Share do
 
   def do_send(file, to) do
     {Share.TaskSupervisor, to}
-    |> Task.Supervisor.async(__MODULE__, :recive_file, [file])
+    |> Task.Supervisor.async(__MODULE__, :recive_file, file)
     |> Task.await
   end
 end
