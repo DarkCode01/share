@@ -1,4 +1,4 @@
-defmodule ServerTest do
+defmodule ShareServerTest do
   use ExUnit.Case
 
   test "(Share.Server): verify get data of GenServer (Share)" do
