@@ -4,17 +4,18 @@ defmodule Share do
   """
 
   def recive_file(file) do
-    IO.write file
+    IO.puts file
+
+    Share.Utils.File.download_file(file)
   end
 
   def send(to) do
-    Share.Utils.File.file_to_share
-    |> do_send(to)
+    Share.Utils.File.file_to_share |> do_send(to)
   end
 
-  def do_send(%{data: data}, to) do
+  def do_send(file, to) do
     {Share.TaskSupervisor, to}
-    |> Task.Supervisor.async(__MODULE__, :recive_file, [data])
+    |> Task.Supervisor.async(__MODULE__, :recive_file, [file])
     |> Task.await
   end
 end
