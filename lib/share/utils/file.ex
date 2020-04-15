@@ -13,16 +13,7 @@ defmodule Share.Utils.File do
     stream
     |> Enum.map(&to_string/1)
     |> Enum.join("")
-    
-    # make_payload("sadasds", "mix.exs")
   end
-
-  # def make_payload(data, filename) do
-  #   # [name, ext] = String.split(filename, ".")
-
-  #   # %{name: name, ext: ext, data: data}
-  #   data
-  # end
 
   def download_file(data) do
     IO.puts "Enter the name to save file: "

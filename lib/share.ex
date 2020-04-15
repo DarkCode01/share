@@ -4,8 +4,6 @@ defmodule Share do
   """
 
   def recive_file(file) do
-    IO.puts file
-
     Share.Utils.File.download_file(file)
   end
 
