@@ -14,7 +14,7 @@ defmodule Share.Setup do
     def run do
       IO.puts "Creating folders..."
 
-      Application.get_env(:share, :home_path).() <> "/share/downloads"
+      Application.get_env(:share, :home_path) <> "/share/downloads"
       |> File.exists?
       |> Share.Utils.File.make_folder_downloads
       |> success?
