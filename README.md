@@ -1,6 +1,6 @@
 # Share
 
-**TODO: Add description**
+**Share** is a packege to manage [Node](https://hexdocs.pm/elixir/Node.html#content) and can share files between [Node](https://hexdocs.pm/elixir/Node.html#content) in the same network.
 
 ## Installation
 
@@ -15,7 +15,21 @@ def deps do
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/share](https://hexdocs.pm/share).
+### Usage
 
+Creation of a Node:
+```elixir
+iex> true = Share.Node.create(name: "test", secret: :secret)
+```
+
+Connect with other Node:
+```elixir
+iex> true = Share.Node.connect_node(name: "other", hostname: "localhost")
+```
+
+Share a file:
+```elixir
+iex> :ok = Share.send(to: :"test@localhost", filename: "/path/file")
+```
+
+<center>Made with ❤️ by darkcoder.</center>
