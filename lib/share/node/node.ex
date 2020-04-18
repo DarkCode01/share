@@ -14,7 +14,8 @@ defmodule Share.Node do
   def create(name: name, secret: secret) when is_atom(secret) do
     GenServer.cast(
       Share.Server, {:update, %Share.Node{
-        pid: nil, name: name, hostname: @hostname, secret: secret
+        pid: nil, name: name,
+        hostname: @hostname, secret: secret
       }}
     )
     
@@ -36,6 +37,14 @@ defmodule Share.Node do
   defp setup_node do
     share_node = GenServer.call(Share.Server, :get)
     Node.set_cookie(share_node.secret)
+  end
+
+  defp generate_secret do
+    @hostname
+    |> String.split
+    |> Enum.reverse
+    |> Enum.join
+    |> String.to_atom
   end
 
   def connect_node(name: name, hostname: hostname) do
