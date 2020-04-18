@@ -14,10 +14,7 @@ defmodule Share do
     |> do_send(to)
   end
 
-  @doc """
-  This function init ther Task Supervisor to send trhe data of
-  file to the node indicated.
-  """
+  @doc false
   defp do_send(file, to) do
     {Share.TaskSupervisor, to}
     |> Task.Supervisor.async(__MODULE__, :recive_file, file)

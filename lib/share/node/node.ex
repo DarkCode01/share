@@ -11,6 +11,9 @@ defmodule Share.Node do
   def me(), do: Node.self()
 
   @doc false
+  def info(), do: GenServer.call(Share.Server, :get)
+
+  @doc false
   def create([name: name, secret: secret]) when is_atom(secret) do
     GenServer.cast(
       Share.Server, {:update, %Share.Node{
@@ -21,6 +24,8 @@ defmodule Share.Node do
     # Craete node and add new secret || cookie.
     Share.Node.create_node
     Share.Node.setup_node
+
+    {:ok, info()}
   end
 
   @doc false

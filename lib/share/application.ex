@@ -1,4 +1,4 @@
-defmodule Share.Application do`
+defmodule Share.Application do
   @moduledoc false
 
   use Application
