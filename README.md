@@ -19,12 +19,20 @@ end
 
 Creation of a Node:
 ```elixir
-iex> true = Share.Node.create(name: "test", secret: :secret)
+iex> {:ok, node_info} = Share.Node.create(name: "test", secret: :secret)
+{:ok,
+ %Share.Node{
+   hostname: "localhost", # Your hostname
+   name: "test",
+   pid: #PID<x.x.x>,
+   secret: :secret
+ }} 
 ```
 
 Connect with other Node:
 ```elixir
-iex> true = Share.Node.connect_node(name: "other", hostname: "localhost")
+iex> {:ok, list_others_nodes} = Share.Node.connect_node(name: "test", hostname: "localhost")
+{:ok, [:"test@localhost"]}
 ```
 
 Share a file:
