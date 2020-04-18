@@ -3,6 +3,7 @@ defmodule Share.Setup do
 
     use Task
 
+    @doc false
     def start_link([]) do
       IO.puts "Init setup..."
 
@@ -11,6 +12,7 @@ defmodule Share.Setup do
       Task.start_link(__MODULE__, :run, [])
     end
 
+    @doc false
     def run do
       IO.puts "Creating folders..."
 
@@ -20,6 +22,7 @@ defmodule Share.Setup do
       |> success?
     end
 
+    @doc false
     def success?({:ok, :success}), do: IO.puts "Success"
     def success?({:error, reason}), do: IO.puts reason
 end

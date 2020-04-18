@@ -7,8 +7,10 @@ defmodule Share.Node do
 
   defstruct [:pid, :name, :hostname, :secret]
 
+  @doc false
   def me(), do: Node.self()
 
+  @doc false
   def create([name: name, secret: secret]) when is_atom(secret) do
     GenServer.cast(
       Share.Server, {:update, %Share.Node{
@@ -21,6 +23,7 @@ defmodule Share.Node do
     Share.Node.setup_node
   end
 
+  @doc false
   def create_node do
     share_node = GenServer.call(Share.Server, :get)
     {:ok, pid} = Node.start(:"#{share_node.name}@#{share_node.hostname}", :shortnames)
@@ -28,11 +31,13 @@ defmodule Share.Node do
     GenServer.cast(Share.Server, {:update, :pid, pid})
   end
 
+  @doc false
   def setup_node do
     share_node = GenServer.call(Share.Server, :get)
     Node.set_cookie(share_node.secret)
   end
 
+  @doc false
   def connect_node(name: name, hostname: hostname) do
     Node.connect(:"#{name}@#{hostname}")
   end
