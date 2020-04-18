@@ -7,14 +7,11 @@ defmodule Share.Node do
 
   defstruct [:pid, :name, :hostname, :secret]
 
-  @doc false
   def me(), do: Node.self()
 
-  @doc false
   def info(), do: GenServer.call(Share.Server, :get)
 
-  @doc false
-  def create([name: name, secret: secret]) when is_atom(secret) do
+  def create(name: name, secret: secret) when is_atom(secret) do
     GenServer.cast(
       Share.Server, {:update, %Share.Node{
         pid: nil, name: name, hostname: @hostname, secret: secret
@@ -22,28 +19,28 @@ defmodule Share.Node do
     )
     
     # Craete node and add new secret || cookie.
-    Share.Node.create_node
-    Share.Node.setup_node
+    create_node()
+    setup_node()
 
     {:ok, info()}
   end
 
-  @doc false
-  def create_node do
+  defp create_node do
     share_node = GenServer.call(Share.Server, :get)
     {:ok, pid} = Node.start(:"#{share_node.name}@#{share_node.hostname}", :shortnames)
 
+    # Changing pid information on GenServer data.
     GenServer.cast(Share.Server, {:update, :pid, pid})
   end
 
-  @doc false
-  def setup_node do
+  defp setup_node do
     share_node = GenServer.call(Share.Server, :get)
     Node.set_cookie(share_node.secret)
   end
 
-  @doc false
   def connect_node(name: name, hostname: hostname) do
     Node.connect(:"#{name}@#{hostname}")
+
+    {:ok, Node.list()}
   end
 end
