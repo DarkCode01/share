@@ -7,6 +7,8 @@ defmodule Share.Utils.File do
     iex> 
   """
 
+  require Logger
+
   @home_path Application.get_env(:share, :home_path)
   @download_path "/share/downloads"
 
@@ -53,7 +55,7 @@ defmodule Share.Utils.File do
   end
 
   @doc false
-  def make_folder_downloads(true), do: {:ok, :success}
+  def make_folder_downloads(true), do: {:ok, true}
   def make_folder_downloads(false) do
     case File.mkdir_p(@home_path <> @download_path) do
       :ok -> {:ok, :success}

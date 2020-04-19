@@ -1,28 +1,48 @@
 defmodule Share.Setup do
     @moduledoc false
-
+    @folder Application.get_env(:share, :home_path) <> "/share/downloads"
+    
     use Task
+
+    require Logger
 
     @doc false
     def start_link([]) do
-      IO.puts "Init setup..."
-
-      # task = Task.async(Share.Setup, :run, [])
-      # Task.await(task)
       Task.start_link(__MODULE__, :run, [])
     end
 
     @doc false
     def run do
-      IO.puts "Creating folders..."
-
-      Application.get_env(:share, :home_path) <> "/share/downloads"
+      @folder
       |> File.exists?
       |> Share.Utils.File.make_folder_downloads
       |> success?
     end
 
     @doc false
-    def success?({:ok, :success}), do: IO.puts "Success"
-    def success?({:error, reason}), do: IO.puts reason
+    def success?({:ok, :success}) do
+      Logger.info(fn 
+        -> "Created folder on #{@folder}."
+      end)
+      Logger.info "All files downloaded storage on that folder."
+
+      finish()
+    end
+    def success?({:error, reason}) do
+      Logger.error(fn
+        -> "Error trying to create folder on #{@folder}"
+      end)
+      Logger.error(fn
+        -> "Reason of error: #{reason}"
+      end)
+
+      finish()
+    end
+    def success?({:ok, _}) do
+      finish()
+    end
+
+    def finish do
+      Logger.info "Finished setup of share package."
+    end
 end

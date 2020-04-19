@@ -3,6 +3,8 @@ defmodule Share.Server do
   
   use GenServer
 
+  require Logger
+
   @doc false
   def init(state) do
     {:ok, state}
@@ -10,6 +12,8 @@ defmodule Share.Server do
 
   @doc false
   def start_link([]) do
+    Logger.info "Starting Gen Server..."
+
     GenServer.start_link(__MODULE__, %Share.Node{}, name: __MODULE__)
   end
 
