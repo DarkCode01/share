@@ -3,7 +3,7 @@ defmodule Share.Node do
   Is a module to create custome node to share all files on network.
   """
 
-  @hostname Application.get_env(:share, :hostname)
+  @hostname Share.Utils.get_hostname
 
   defstruct [:pid, :name, :hostname, :secret]
 
@@ -37,14 +37,6 @@ defmodule Share.Node do
   defp setup_node do
     share_node = GenServer.call(Share.Server, :get)
     Node.set_cookie(share_node.secret)
-  end
-
-  defp generate_secret do
-    @hostname
-    |> String.split
-    |> Enum.reverse
-    |> Enum.join
-    |> String.to_atom
   end
 
   def connect_node(name: name, hostname: hostname) do

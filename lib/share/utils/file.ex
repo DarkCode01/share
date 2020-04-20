@@ -9,7 +9,7 @@ defmodule Share.Utils.File do
 
   require Logger
 
-  @home_path Application.get_env(:share, :home_path)
+  @home_path Share.Utils.get_home_path
   @download_path "/share/downloads"
 
   @doc """
