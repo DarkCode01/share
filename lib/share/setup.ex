@@ -1,6 +1,6 @@
 defmodule Share.Setup do
     @moduledoc false
-    @folder Application.get_env(:share, :home_path) <> "/share/downloads"
+    @folder Share.Utils.get_home_path <> "/share/downloads"
     
     use Task
 

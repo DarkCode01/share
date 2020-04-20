@@ -10,15 +10,17 @@ defmodule ShareNodeTests do
   end
 
   test "Creating new node with module.", state do
-    created? = Share.Node.create(name: state[:name], secret: state[:secret])
-
-    assert created? == true
+    {:ok, node_info} = Share.Node.create(name: state[:name], secret: state[:secret])
+    
+    assert map_size(node_info) == 5
+    assert node_info.__struct__ == Share.Node
+    assert node_info.__struct__ == %Share.Node{}.__struct__
   end
 
   test "Connection to other node on same network.", state do
     connected? = Share.Node.connect_node(name: state[:name] <> "1", hostname: state[:hostname])
 
-    assert connected? == true
+    assert connected? == {:ok, []}
   end
 
   test "Get my identify node", state do
