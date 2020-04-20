@@ -21,4 +21,10 @@ defmodule Share.Utils do
     |> to_string
     |> String.trim
   end
+
+  def generate_secret do
+    :crypto.strong_rand_bytes(16)
+    |> Base.encode16
+    |> String.to_atom
+  end
 end
