@@ -1,5 +1,5 @@
 defmodule ShareNodeTests do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   setup_all do
     name = Application.get_env(:share, :name)

@@ -1,5 +1,5 @@
 defmodule ShareServerTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   test "(Share.Server): verify get data of GenServer (Share)" do
     node_info = GenServer.call(Share.Server, :get)
